@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "universal-tick",
+  "version": "${version}",
+  "name": "Universal Tick",
+  "description": "Control the tick speed on server and client",
+  "authors": [
+    "ConnorSlade"
+  ],
+  "contact": {
+    "website": "https://connorcode.com"
+  },
+  "license": "MIT",
+  "icon": "assets/universal-tick/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.connorcode.universaltick.client.UniversalTickClient"
+    ],
+    "main": [
+      "com.connorcode.universaltick.UniversalTick"
+    ]
+  },
+  "mixins": [
+    "universal-tick.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.3",
+    "fabric": "*",
+    "minecraft": "1.17.1"
+  }
+}
