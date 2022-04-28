@@ -8,6 +8,5 @@ import net.fabricmc.api.Environment;
 public class UniversalTickClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-
     }
 }
