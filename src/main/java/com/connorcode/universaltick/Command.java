@@ -3,6 +3,6 @@ package com.connorcode.universaltick;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;
 
-public interface Command {
-    int execute(CommandContext<ServerCommandSource> ctx);
+public abstract class Command {
+    public abstract int execute(CommandContext<ServerCommandSource> ctx);
 }
