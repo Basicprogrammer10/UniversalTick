@@ -6,6 +6,6 @@ public class UniversalTick implements ModInitializer {
     @Override
     public void onInitialize() {
         // Init server side command system
-        Command.initCommands();
+       new Commands().initCommands();
     }
 }

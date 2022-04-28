@@ -10,6 +10,9 @@
 ## My Todo
 
 - [ ] Command System
-- [ ] Client Tick Speed
+  - [X] About Command
+  - [X] Tick Set Base
+  - [X] Tick Get Base
 - [ ] Server Tick Speed
+- [ ] Client Tick Speed
 - [ ] Tick Speed Syncing
