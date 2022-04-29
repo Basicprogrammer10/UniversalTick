@@ -2,6 +2,7 @@ package com.connorcode.universaltick.commands;
 
 import com.connorcode.universaltick.Command;
 import com.connorcode.universaltick.Commands;
+import com.connorcode.universaltick.TickInfo;
 import com.connorcode.universaltick.UniversalTick;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -29,13 +30,12 @@ public class TickSet implements Command {
         // Set the server tps and notify all clients
         UniversalTick.setTps(parseResult.get(), true);
 
-        // Send message with new tick speed
-        // Also show some *fancy* particles
-        try {
-            ctx.getSource().getPlayer().sendMessage(Text.of(String.format("Set Tick Speed To %f", parseResult.get())), true);
+        // Reset the TPS history so its accurate more quickly
+        TickInfo.tickHistory.clear();
 
-            Vec3d pos = ctx.getSource().getPlayer().getPos();
-            ctx.getSource().getWorld().spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0D, 0D, 0D, 1.0);
+        // Send message with new tick speed
+        try {
+            ctx.getSource().getPlayer().sendMessage(Text.of(String.format("Set Tick Speed To %.1f", parseResult.get())), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
