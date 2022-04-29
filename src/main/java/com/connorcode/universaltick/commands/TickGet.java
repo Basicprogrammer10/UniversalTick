@@ -7,10 +7,11 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 
 public class TickGet implements Command {
     @Override
-    public int execute(CommandContext<ServerCommandSource> ctx) {
+    public int execute(@NotNull CommandContext<ServerCommandSource> ctx) {
         try {
             ctx.getSource()
                     .getPlayer()

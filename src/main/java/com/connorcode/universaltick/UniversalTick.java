@@ -16,7 +16,7 @@ public class UniversalTick implements ModInitializer {
 
     // Get the target tick speed as TPS
     public static float getTps() {
-        return (1F / ((float) targetMSPT * 1000F));
+        return 1F / (float) targetMSPT * 1000F;
     }
 
     // Set target tick speed and update connected clients

@@ -10,6 +10,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 
 public class TickSet implements Command {
     @Override
-    public int execute(CommandContext<ServerCommandSource> ctx) {
+    public int execute(@NotNull CommandContext<ServerCommandSource> ctx) {
         // Get and parse the tps
         String rawTps = getString(ctx, "tick");
         Optional<Float> parseResult = parseTps(rawTps);

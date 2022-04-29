@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
 
@@ -19,7 +20,7 @@ public class Commands {
     Command tickSetCommand = new TickSet();
 
     // Easy way to exit after sending an error message to the players
-    public static int easyErr(CommandContext<ServerCommandSource> ctx,
+    public static int easyErr(@NotNull CommandContext<ServerCommandSource> ctx,
                               String message) {
         try {
             ctx.getSource()
