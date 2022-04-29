@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(MinecraftServer.class)
-public class EventLoop {
+public class TickTime {
     @ModifyConstant(method = {"runServer"}, constant = {@Constant(longValue = 50L)})
     long modifyTickTime(long tickTime) {
         return UniversalTick.targetMSPT;

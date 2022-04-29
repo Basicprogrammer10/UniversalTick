@@ -10,13 +10,13 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
-import static com.mojang.brigadier.arguments.FloatArgumentType.floatArg;
+import static com.mojang.brigadier.arguments.StringArgumentType.string;
 
 public class Commands {
     Command[] commands =
             new Command[]{new About(), new TickGet(), new TickSet()};
 
-    private static int easyErr(CommandContext<ServerCommandSource> ctx,
+    public static int easyErr(CommandContext<ServerCommandSource> ctx,
                                String message) {
         try {
             ctx.getSource()
@@ -33,7 +33,7 @@ public class Commands {
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("tick")
                         .then(CommandManager.literal("set")
-                                .then(CommandManager.argument("tick", floatArg(0.1F, 500F))
+                                .then(CommandManager.argument("tick", string())
                                         .executes(ctx -> commands[2].execute(ctx)))
                                 .executes(ctx -> easyErr(ctx, "No tick rate provided")))
                         .then(CommandManager.literal("get")

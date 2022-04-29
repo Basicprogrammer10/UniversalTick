@@ -1,6 +1,7 @@
 package com.connorcode.universaltick.commands;
 
 import com.connorcode.universaltick.Command;
+import com.connorcode.universaltick.TickInfo;
 import com.connorcode.universaltick.UniversalTick;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -13,7 +14,7 @@ public class TickGet extends Command {
         try {
             ctx.getSource()
                     .getPlayer()
-                    .sendMessage(Text.of(String.format("Target Tick Speed: %f", UniversalTick.getTps())), true);
+                    .sendMessage(Text.of(String.format("Target Tick Speed: %f\nActual Tick Speed: %f", UniversalTick.getTps(), TickInfo.getTps())), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

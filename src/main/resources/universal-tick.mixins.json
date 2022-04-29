@@ -4,7 +4,8 @@
   "package": "com.connorcode.universaltick.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "EventLoop"
+    "TickEvent",
+    "TickTime"
   ],
   "client": [
   ],
