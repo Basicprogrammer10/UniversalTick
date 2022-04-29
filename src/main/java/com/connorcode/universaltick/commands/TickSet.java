@@ -7,7 +7,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +35,6 @@ public class TickSet implements Command {
             ctx.getSource().getPlayer().sendMessage(Text.of(String.format("Set Tick Speed To %f", parseResult.get())), true);
 
             Vec3d pos = ctx.getSource().getPlayer().getPos();
-            ctx.getSource().getPlayer().playSound(SoundEvents.BLOCK_AMETHYST_CLUSTER_STEP, 1F, 1F);
             ctx.getSource().getWorld().spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0D, 0D, 0D, 1.0);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();

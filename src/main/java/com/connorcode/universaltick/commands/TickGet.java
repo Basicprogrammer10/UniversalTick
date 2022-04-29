@@ -15,7 +15,8 @@ public class TickGet implements Command {
         try {
             ctx.getSource()
                     .getPlayer()
-                    .sendMessage(Text.of(String.format("Target Tick Speed: %f\nActual Tick Speed: %f", UniversalTick.getTps(), TickInfo.getTps())), true);
+                    // Target TPS × Real TPS
+                    .sendMessage(Text.of(String.format("%.1f ⌂ %.1f", UniversalTick.getTps(), TickInfo.getTps())), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

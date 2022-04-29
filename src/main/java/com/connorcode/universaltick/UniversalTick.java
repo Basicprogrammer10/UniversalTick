@@ -3,7 +3,7 @@ package com.connorcode.universaltick;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.network.Packet;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,6 +16,7 @@ public class UniversalTick implements ModInitializer {
 
     // Get the target tick speed as TPS
     public static float getTps() {
+        // TODO: Support large TPSs
         return 1F / (float) targetMSPT * 1000F;
     }
 
@@ -28,8 +29,9 @@ public class UniversalTick implements ModInitializer {
         // Update tick speed for all clients
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeLong(targetMSPT);
-        for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
-            p.networkHandler.sendPacket((Packet<?>) buf);
+        for (ServerPlayerEntity p : server.getPlayerManager()
+                .getPlayerList())
+            ServerPlayNetworking.send(p, SET_TICK_SPEED_PACKET, buf);
     }
 
     @Override
