@@ -33,8 +33,8 @@ public class Commands {
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("tick")
                         .then(CommandManager.literal("set")
-                                .then(CommandManager.argument("tick", floatArg(0.1F, 500F)))
-                                .executes(ctx -> commands[2].execute(ctx))
+                                .then(CommandManager.argument("tick", floatArg(0.1F, 500F))
+                                        .executes(ctx -> commands[2].execute(ctx)))
                                 .executes(ctx -> easyErr(ctx, "No tick rate provided")))
                         .then(CommandManager.literal("get")
                                 .executes(ctx -> commands[1].execute(ctx)))

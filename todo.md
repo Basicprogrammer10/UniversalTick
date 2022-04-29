@@ -14,6 +14,6 @@
     - [X] About Command
     - [X] Tick Set Base
     - [X] Tick Get Base
-- [ ] Server Tick Speed
+- [X] Server Tick Speed
 - [ ] Client Tick Speed
 - [ ] Tick Speed Syncing

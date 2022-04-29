@@ -16,7 +16,7 @@ public class TickSet extends Command {
         UniversalTick.setTps(tps);
 
         try {
-            ctx.getSource().getPlayer().sendMessage(Text.of("Set Tick Speed To XX"), true);
+            ctx.getSource().getPlayer().sendMessage(Text.of(String.format("Set Tick Speed To %f", tps)), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
