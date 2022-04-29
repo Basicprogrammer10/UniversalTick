@@ -13,11 +13,14 @@ import net.minecraft.text.Text;
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
 
 public class Commands {
-    Command[] commands =
-            new Command[]{new About(), new TickGet(), new TickSet()};
+    // Create Commands
+    Command aboutCommand = new About();
+    Command tickGetCommand = new TickGet();
+    Command tickSetCommand = new TickSet();
 
+    // Easy way to exit after sending an error message to the players
     public static int easyErr(CommandContext<ServerCommandSource> ctx,
-                               String message) {
+                              String message) {
         try {
             ctx.getSource()
                     .getPlayer()
@@ -29,17 +32,18 @@ public class Commands {
         return 1;
     }
 
+    // Add the commands to the server
     void initCommands() {
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("tick")
                         .then(CommandManager.literal("set")
                                 .then(CommandManager.argument("tick", string())
-                                        .executes(ctx -> commands[2].execute(ctx)))
+                                        .executes(ctx -> tickSetCommand.execute(ctx)))
                                 .executes(ctx -> easyErr(ctx, "No tick rate provided")))
                         .then(CommandManager.literal("get")
-                                .executes(ctx -> commands[1].execute(ctx)))
+                                .executes(ctx -> tickGetCommand.execute(ctx)))
                         .then(CommandManager.literal("about")
-                                .executes(ctx -> commands[0].execute(ctx)))
+                                .executes(ctx -> aboutCommand.execute(ctx)))
                         .executes(ctx -> easyErr(ctx, "No tick subcommand provided"))));
     }
 }

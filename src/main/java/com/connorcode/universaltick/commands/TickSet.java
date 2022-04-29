@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 
-public class TickSet extends Command {
+public class TickSet implements Command {
     @Override
     public int execute(CommandContext<ServerCommandSource> ctx) {
         // Get and parse the tps

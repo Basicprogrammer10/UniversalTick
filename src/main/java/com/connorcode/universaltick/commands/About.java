@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
-public class About extends Command {
+public class About implements Command {
     @Override
     public int execute(CommandContext<ServerCommandSource> ctx) {
         try {
