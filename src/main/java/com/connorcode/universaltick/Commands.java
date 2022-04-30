@@ -39,6 +39,7 @@ public class Commands {
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("tick")
                         .then(CommandManager.literal("set")
+                                .requires((x) -> x.hasPermissionLevel(4))
                                 .then(CommandManager.argument("tick", string())
                                         .suggests((c, b) -> suggestMatching(new String[]{"20.0", "100p"}, b))
                                         .executes(ctx -> tickSetCommand.execute(ctx))

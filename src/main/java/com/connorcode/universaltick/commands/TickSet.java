@@ -25,16 +25,19 @@ public class TickSet implements Command {
 
         // If parsing fails send an error
         if (parseResult.isEmpty())
-            return Commands.easyErr(ctx, "Invalid Tick Speed");
+            return Commands.easyErr(ctx, "Invalid tick speed");
 
         if (changeType.isEmpty())
-            return Commands.easyErr(ctx, "Invalid Change Type");
+            return Commands.easyErr(ctx, "Invalid change type");
+
+        if (parseResult.get() > 500)
+            return Commands.easyErr(ctx, "Lets keep the tick speed to 500 or under");
 
         // Set the server tps and notify all clients
         UniversalTick.setTps(parseResult.get(), changeType.get());
 
         // Reset the TPS history so it's accurate more quickly
-        TickInfo.tickHistory.clear();
+        UniversalTick.tickInfo.tickHistory.clear();
 
         // Send message with new tick speed
         try {
@@ -48,6 +51,7 @@ public class TickSet implements Command {
         return 1;
     }
 
+    // Little function to add what type is being changed to the message
     private String typeString(RateChange type) {
         return switch (type) {
             case Client -> " Client";
@@ -56,6 +60,8 @@ public class TickSet implements Command {
         };
     }
 
+    // parse the type,,,
+    // this really didn't need a comment
     private Optional<RateChange> parseType(CommandContext<ServerCommandSource> ctx) {
         String type;
         try {

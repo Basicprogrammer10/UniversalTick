@@ -1,6 +1,7 @@
 package com.connorcode.universaltick.mixin;
 
 import com.connorcode.universaltick.TickInfo;
+import com.connorcode.universaltick.UniversalTick;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +15,6 @@ import java.util.function.BooleanSupplier;
 public class TickEvent {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-        TickInfo.processTick();
+        UniversalTick.tickInfo.processTick();
     }
 }

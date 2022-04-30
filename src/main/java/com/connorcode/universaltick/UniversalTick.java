@@ -11,12 +11,13 @@ import net.minecraft.util.Identifier;
 
 public class UniversalTick implements ModInitializer {
     public static final Identifier SET_TICK_SPEED_PACKET = new Identifier("universialtick", "tickspeed");
-    public static MinecraftServer server;
     public static long targetMSPT = 50;
+
+    public static TickInfo tickInfo = new TickInfo();
+    public static MinecraftServer server;
 
     // Get the target tick speed as TPS
     public static float getTps() {
-        // TODO: Support large TPSs
         return 1F / (float) targetMSPT * 1000F;
     }
 
@@ -24,7 +25,7 @@ public class UniversalTick implements ModInitializer {
     public static void setTps(float tps, RateChange updateType) {
         // Set Target MSPT
         if (updateType == RateChange.Server || updateType == RateChange.Universal)
-            targetMSPT = (long) ((1.0 / tps) * 1000);
+            targetMSPT = (long) (1.0 / tps * 1000);
 
         // Update tick speed for all clients
         if (updateType == RateChange.Client || updateType == RateChange.Universal) {
