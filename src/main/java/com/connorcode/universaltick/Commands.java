@@ -11,7 +11,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
-import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
+import static com.mojang.brigadier.arguments.StringArgumentType.string;
+import static net.minecraft.command.CommandSource.suggestMatching;
 
 public class Commands {
     // Create Commands
@@ -38,8 +39,13 @@ public class Commands {
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("tick")
                         .then(CommandManager.literal("set")
-                                .then(CommandManager.argument("tick", greedyString())
-                                        .executes(ctx -> tickSetCommand.execute(ctx)))
+                                .then(CommandManager.argument("tick", string())
+                                        .suggests((c, b) -> suggestMatching(new String[]{"20.0", "100p"}, b))
+                                        .executes(ctx -> tickSetCommand.execute(ctx))
+                                        .then(CommandManager.argument("type", string())
+                                                .suggests((c, b) -> suggestMatching(
+                                                        new String[]{"server", "clients", "universal"}, b))
+                                                .executes(ctx -> tickSetCommand.execute(ctx))))
                                 .executes(ctx -> easyErr(ctx, "No tick rate provided")))
                         .then(CommandManager.literal("get")
                                 .executes(ctx -> tickGetCommand.execute(ctx)))

@@ -21,17 +21,19 @@ public class UniversalTick implements ModInitializer {
     }
 
     // Set target tick speed and update connected clients
-    public static void setTps(float tps, boolean updateClients) {
+    public static void setTps(float tps, RateChange updateType) {
         // Set Target MSPT
-        targetMSPT = (long) ((1.0 / tps) * 1000);
-        if (!updateClients) return;
+        if (updateType == RateChange.Server || updateType == RateChange.Universal)
+            targetMSPT = (long) ((1.0 / tps) * 1000);
 
         // Update tick speed for all clients
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeLong(targetMSPT);
-        for (ServerPlayerEntity p : server.getPlayerManager()
-                .getPlayerList())
-            ServerPlayNetworking.send(p, SET_TICK_SPEED_PACKET, buf);
+        if (updateType == RateChange.Client || updateType == RateChange.Universal) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeLong(targetMSPT);
+            for (ServerPlayerEntity p : server.getPlayerManager()
+                    .getPlayerList())
+                ServerPlayNetworking.send(p, SET_TICK_SPEED_PACKET, buf);
+        }
     }
 
     @Override
@@ -41,5 +43,9 @@ public class UniversalTick implements ModInitializer {
 
         // Init server side command system
         new Commands().initCommands();
+    }
+
+    public enum RateChange {
+        Server, Client, Universal
     }
 }
