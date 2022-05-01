@@ -13,8 +13,6 @@ import net.minecraft.client.toast.SystemToast;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
-import java.util.Set;
-
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
     public static Settings settings = new Settings();

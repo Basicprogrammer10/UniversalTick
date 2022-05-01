@@ -1,6 +1,5 @@
 package com.connorcode.universaltick.mixin;
 
-import com.connorcode.universaltick.Settings;
 import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
