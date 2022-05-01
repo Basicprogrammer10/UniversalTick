@@ -2,7 +2,6 @@ package com.connorcode.universaltick.commands;
 
 import com.connorcode.universaltick.Command;
 import com.connorcode.universaltick.Commands;
-import com.connorcode.universaltick.TickInfo;
 import com.connorcode.universaltick.UniversalTick;
 import com.connorcode.universaltick.UniversalTick.RateChange;
 import com.mojang.brigadier.context.CommandContext;

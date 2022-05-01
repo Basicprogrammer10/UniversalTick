@@ -1,6 +1,8 @@
 package com.connorcode.universaltick.client;
 
 import com.connorcode.universaltick.UniversalTick;
+import com.connorcode.universaltick.mixin.ClientRenderTickCounter;
+import com.connorcode.universaltick.mixin.ClientTickEvent;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,8 +21,8 @@ public class UniversalTickClient implements ClientModInitializer {
                     long mspt = buf.readLong();
                     targetTps = 1F / (float) mspt * 1000F;
 
-                    // TODO: Set Tick Speed
                     client.execute(() -> {
+                        ((ClientRenderTickCounter) ((ClientTickEvent) client).renderTickCounter()).tickTime(mspt);
                     });
                 });
     }

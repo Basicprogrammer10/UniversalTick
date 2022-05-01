@@ -8,6 +8,8 @@
     "TickTime"
   ],
   "client": [
+    "ClientTickEvent",
+    "ClientRenderTickCounter"
   ],
   "injectors": {
     "defaultRequire": 1

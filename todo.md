@@ -17,6 +17,9 @@
 - [X] Server Tick Speed
 - [X] True Tick Speed
 - [X] Client - Server Communication
-- [ ] Client Tick Speed
-- [ ] Tick Speed Syncing
+- [X] Client Tick Speed
+  - [ ] Rendering
+  - [ ] Sound
+  - [ ] Control
+- [X] Tick Speed Syncing
 - [ ] Reset Client TickSpeed on world / server leave
