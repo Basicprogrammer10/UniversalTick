@@ -1,6 +1,5 @@
 package com.connorcode.universaltick.mixin;
 
-import com.connorcode.universaltick.TickInfo;
 import com.connorcode.universaltick.UniversalTick;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

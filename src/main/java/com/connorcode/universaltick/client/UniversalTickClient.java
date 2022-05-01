@@ -15,6 +15,11 @@ import net.minecraft.text.Text;
 public class UniversalTickClient implements ClientModInitializer {
     public static long clientTickSpeed = 50;
 
+    public static void setClientTickSpeed(float mspt) {
+        ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(
+                mspt);
+    }
+
     @Override
     public void onInitializeClient() {
         // Create Tick Speed Packet Listener
@@ -25,12 +30,9 @@ public class UniversalTickClient implements ClientModInitializer {
                     clientTickSpeed = mspt;
 
                     client.execute(() -> setClientTickSpeed(mspt));
-                    client.getToastManager().add(new SystemToast(SystemToast.Type.TUTORIAL_HINT, Text.of("UniversalTick"), Text.of("Got new tick speed")));
+                    client.getToastManager()
+                            .add(new SystemToast(SystemToast.Type.TUTORIAL_HINT, Text.of("UniversalTick"),
+                                    Text.of("Got new tick speed")));
                 });
-    }
-
-    public static void setClientTickSpeed(float mspt) {
-        ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(
-                mspt);
     }
 }

@@ -10,6 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class ClientMouse {
     @ModifyVariable(method = "updateMouse", at = @At(value = "STORE"), name = "f")
     private double modifyMouseSensitivity(double og) {
-        return 50D / (double)UniversalTickClient.clientTickSpeed * og;
+        return 50D / (double) UniversalTickClient.clientTickSpeed * og;
     }
 }

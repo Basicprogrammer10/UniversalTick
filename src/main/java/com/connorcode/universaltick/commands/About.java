@@ -11,7 +11,9 @@ public class About implements Command {
     @Override
     public int execute(@NotNull CommandContext<ServerCommandSource> ctx) {
         try {
-            ctx.getSource().getPlayer().sendMessage(Text.of("UniversalTick Mod V0.0 by Sigma#8214"), true);
+            ctx.getSource()
+                    .getPlayer()
+                    .sendMessage(Text.of("UniversalTick Mod V0.0 by Sigma#8214"), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

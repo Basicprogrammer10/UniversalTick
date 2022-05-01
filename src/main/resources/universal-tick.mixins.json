@@ -9,11 +9,11 @@
     "TickTime"
   ],
   "client": [
+    "ClientMouse",
     "ClientRenderTickCounter",
     "ClientSaveLevelScreen",
-    "ClientTickEvent",
     "ClientSoundSystem",
-    "ClientMouse"
+    "ClientTickEvent"
   ],
   "injectors": {
     "defaultRequire": 1

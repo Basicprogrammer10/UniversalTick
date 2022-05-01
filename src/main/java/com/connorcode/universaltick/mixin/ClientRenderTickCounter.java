@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(RenderTickCounter.class)
 public interface ClientRenderTickCounter {
-    @Accessor("tickTime") @Mutable
+    @Accessor("tickTime")
+    @Mutable
     void tickTime(float tickTime);
 }

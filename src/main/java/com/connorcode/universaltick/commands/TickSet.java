@@ -42,7 +42,8 @@ public class TickSet implements Command {
         try {
             ctx.getSource()
                     .getPlayer()
-                    .sendMessage(Text.of(String.format("Set%s Tick Speed To %.1f", typeString(changeType.get()), parseResult.get())), true);
+                    .sendMessage(Text.of(String.format("Set%s Tick Speed To %.1f", typeString(changeType.get()),
+                            parseResult.get())), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
