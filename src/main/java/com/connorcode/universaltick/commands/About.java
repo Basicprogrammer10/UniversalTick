@@ -13,7 +13,7 @@ public class About implements Command {
         try {
             ctx.getSource()
                     .getPlayer()
-                    .sendMessage(Text.of("UniversalTick Mod V0.0 by Sigma#8214"), true);
+                    .sendMessage(Text.of("UniversalTick Mod V1.0 by Sigma#8214"), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
