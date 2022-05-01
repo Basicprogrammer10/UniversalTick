@@ -9,20 +9,23 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static com.connorcode.universaltick.UniversalTick.SETTING_SYNC_PACKET;
 
 public class Settings {
-    public static final String[] settings = new String[]{
+    public final String[] settings = new String[]{
             "clientMouse", "clientSound"
     };
 
-    public static boolean clientMouse = true;
-    public static boolean clientSound = true;
+    public boolean clientMouse = true;
+    public boolean clientSound = true;
 
-    public static void broadcastSettings() {
+    public NbtCompound asNbt() {
         NbtCompound data = new NbtCompound();
         data.putBoolean("clientMouse", clientMouse);
         data.putBoolean("clientSound", clientSound);
+        return data;
+    }
 
+    public void broadcastSettings() {
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeNbt(data);
+        buf.writeNbt(asNbt());
         for (ServerPlayerEntity p : UniversalTick.server.getPlayerManager()
                 .getPlayerList())
             ServerPlayNetworking.send(p, SETTING_SYNC_PACKET, buf);

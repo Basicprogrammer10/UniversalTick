@@ -13,8 +13,11 @@ import net.minecraft.client.toast.SystemToast;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
+import java.util.Set;
+
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
+    public static Settings settings = new Settings();
     public static long clientTickSpeed = 50;
     public static boolean sentServerToast = false;
 
@@ -49,8 +52,8 @@ public class UniversalTickClient implements ClientModInitializer {
                     NbtCompound data = buf.readNbt();
                     assert data != null;
 
-                    Settings.clientMouse = data.getBoolean("clientMouse");
-                    Settings.clientSound = data.getBoolean("clientSound");
+                    settings.clientMouse = data.getBoolean("clientMouse");
+                    settings.clientSound = data.getBoolean("clientSound");
                 });
     }
 }

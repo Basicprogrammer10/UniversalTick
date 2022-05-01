@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.particle.SuspendParticle;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,6 +17,7 @@ public class UniversalTick implements ModInitializer {
     public static long clientTargetMSPT = 50;
 
     public static TickInfo tickInfo = new TickInfo();
+    public static Settings settings = new Settings();
     public static MinecraftServer server;
 
     // Get the target tick speed as TPS
@@ -49,10 +51,19 @@ public class UniversalTick implements ModInitializer {
         // Get and save reference to the server
         ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> server = minecraftServer);
 
+        // Reset everything
+        ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> {
+            targetMSPT = 50;
+            clientTargetMSPT = 50;
+            tickInfo = new TickInfo();
+            settings = new Settings();
+        });
+
         // Init server side command system
         new Commands().initCommands();
     }
 
+    // The different targets of the rate change
     public enum RateChange {
         Server, Client, Universal
     }

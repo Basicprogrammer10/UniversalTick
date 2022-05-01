@@ -23,4 +23,5 @@
   - [X] Control
 - [X] Tick Speed Syncing
 - [X] Sync Tick Speed on Client Join
-- [ ] Reset Client TickSpeed on world / server leave
+- [X] Config System
+- [X] Reset Client TickSpeed on world / server leave

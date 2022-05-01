@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ClientSoundSystem {
     @Inject(method = {"getAdjustedPitch"}, at = {@At("HEAD")}, cancellable = true)
     void modifyPitch(SoundInstance instance, CallbackInfoReturnable<Float> returnable) {
-        if (!Settings.clientSound) return;
+        if (!UniversalTickClient.settings.clientSound) return;
         returnable.setReturnValue(50.0F / UniversalTickClient.clientTickSpeed);
         returnable.cancel();
     }

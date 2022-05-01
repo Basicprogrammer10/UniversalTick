@@ -60,15 +60,15 @@ public class Commands {
                                 .then(CommandManager.literal("clientMouse")
                                         .then(CommandManager.argument("value", bool())
                                                 .executes(ctx -> {
-                                                    Settings.clientMouse = getBool(ctx, "value");
-                                                    Settings.broadcastSettings();
+                                                    UniversalTick.settings.clientMouse = getBool(ctx, "value");
+                                                    UniversalTick.settings.broadcastSettings();
                                                     return 1;
                                                 })))
                                 .then(CommandManager.literal("clientSound")
                                         .then(CommandManager.argument("value", bool())
                                                 .executes(ctx -> {
-                                                    Settings.clientSound = getBool(ctx, "value");
-                                                    Settings.broadcastSettings();
+                                                    UniversalTick.settings.clientSound = getBool(ctx, "value");
+                                                    UniversalTick.settings.broadcastSettings();
                                                     return 1;
                                                 }))))));
     }
