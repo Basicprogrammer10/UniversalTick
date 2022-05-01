@@ -4,12 +4,12 @@
 
 - [X] Mod should be fabric, compatible with 1.16.5 and 1.17.1
 - [X] Should work on multiplayer fabric servers
-- [ ] Ideally I would like it to have the ability to slow the entire client's speed, not only certain aspects like movement / tick rate which
-- [ ] Speeds should be configurable (for example options for 20%, 40%, 60%, 80%)
+- [X] Ideally I would like it to have the ability to slow the entire client's speed, not only certain aspects like movement / tick rate which
+- [X] Speeds should be configurable (for example options for 20%, 40%, 60%, 80%)
 
 ## My Todo
 
-- [ ] Command System
+- [X] Command System
   - [X] Bases
     - [X] About Command
     - [X] Tick Set Base
@@ -20,7 +20,7 @@
 - [X] Client Tick Speed
   - [X] Rendering
   - [X] Sound
-  - [ ] Control
+  - [X] Control
 - [X] Tick Speed Syncing
 - [X] Sync Tick Speed on Client Join
 - [ ] Reset Client TickSpeed on world / server leave

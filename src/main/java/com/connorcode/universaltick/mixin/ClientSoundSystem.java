@@ -1,6 +1,5 @@
 package com.connorcode.universaltick.mixin;
 
-import com.connorcode.universaltick.UniversalTick;
 import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundSystem;
