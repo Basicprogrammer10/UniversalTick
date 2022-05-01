@@ -1,5 +1,6 @@
 package com.connorcode.universaltick.client;
 
+import com.connorcode.universaltick.Settings;
 import com.connorcode.universaltick.UniversalTick;
 import com.connorcode.universaltick.mixin.ClientRenderTickCounter;
 import com.connorcode.universaltick.mixin.ClientTickEvent;
@@ -9,11 +10,13 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.toast.SystemToast;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
     public static long clientTickSpeed = 50;
+    public static boolean sentServerToast = false;
 
     public static void setClientTickSpeed(float mspt) {
         ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(
@@ -29,10 +32,25 @@ public class UniversalTickClient implements ClientModInitializer {
                     long mspt = buf.readLong();
                     clientTickSpeed = mspt;
 
-                    client.execute(() -> setClientTickSpeed(mspt));
-                    client.getToastManager()
-                            .add(new SystemToast(SystemToast.Type.TUTORIAL_HINT, Text.of("UniversalTick"),
-                                    Text.of("Got new tick speed")));
+                    client.execute(() -> {
+                        setClientTickSpeed(mspt);
+
+                        if (sentServerToast) return;
+                        sentServerToast = true;
+                        client.getToastManager()
+                                .add(new SystemToast(SystemToast.Type.TUTORIAL_HINT, Text.of("Universal-Tick"),
+                                        Text.of("Server has UniversalTick")));
+                    });
+                });
+
+        // Create Setting Sync Packet Listener
+        ClientPlayNetworking.registerGlobalReceiver(UniversalTick.SETTING_SYNC_PACKET,
+                (client, handler, buf, responseSender) -> {
+                    NbtCompound data = buf.readNbt();
+                    assert data != null;
+
+                    Settings.clientMouse = data.getBoolean("clientMouse");
+                    Settings.clientSound = data.getBoolean("clientSound");
                 });
     }
 }

@@ -11,6 +11,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
+import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
+import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
 import static net.minecraft.command.CommandSource.suggestMatching;
 
@@ -42,16 +44,32 @@ public class Commands {
                                 .requires((x) -> x.hasPermissionLevel(4))
                                 .then(CommandManager.argument("tick", string())
                                         .suggests((c, b) -> suggestMatching(new String[]{"20.0", "100p"}, b))
-                                        .executes(ctx -> tickSetCommand.execute(ctx))
+                                        .executes(tickSetCommand::execute)
                                         .then(CommandManager.argument("type", string())
                                                 .suggests((c, b) -> suggestMatching(
                                                         new String[]{"server", "clients", "universal"}, b))
-                                                .executes(ctx -> tickSetCommand.execute(ctx))))
+                                                .executes(tickSetCommand::execute)))
                                 .executes(ctx -> easyErr(ctx, "No tick rate provided")))
                         .then(CommandManager.literal("get")
-                                .executes(ctx -> tickGetCommand.execute(ctx)))
+                                .executes(tickGetCommand::execute))
                         .then(CommandManager.literal("about")
-                                .executes(ctx -> aboutCommand.execute(ctx)))
-                        .executes(ctx -> easyErr(ctx, "No tick subcommand provided"))));
+                                .executes(aboutCommand::execute))
+                        .executes(ctx -> easyErr(ctx, "No tick subcommand provided"))
+                        .then(CommandManager.literal("config")
+                                .requires((x) -> x.hasPermissionLevel(4))
+                                .then(CommandManager.literal("clientMouse")
+                                        .then(CommandManager.argument("value", bool())
+                                                .executes(ctx -> {
+                                                    Settings.clientMouse = getBool(ctx, "value");
+                                                    Settings.broadcastSettings();
+                                                    return 1;
+                                                })))
+                                .then(CommandManager.literal("clientSound")
+                                        .then(CommandManager.argument("value", bool())
+                                                .executes(ctx -> {
+                                                    Settings.clientSound = getBool(ctx, "value");
+                                                    Settings.broadcastSettings();
+                                                    return 1;
+                                                }))))));
     }
 }

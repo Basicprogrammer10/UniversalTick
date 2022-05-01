@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class UniversalTick implements ModInitializer {
     public static final Identifier SET_TICK_SPEED_PACKET = new Identifier("universialtick", "tickspeed");
-    public static final Identifier GREETING_PACKET = new Identifier("universialtick", "greeting");
+    public static final Identifier SETTING_SYNC_PACKET = new Identifier("universialtick", "settings");
     public static long targetMSPT = 50;
     public static long clientTargetMSPT = 50;
 

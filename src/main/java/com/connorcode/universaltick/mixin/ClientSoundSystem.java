@@ -1,5 +1,6 @@
 package com.connorcode.universaltick.mixin;
 
+import com.connorcode.universaltick.Settings;
 import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundSystem;
@@ -12,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ClientSoundSystem {
     @Inject(method = {"getAdjustedPitch"}, at = {@At("HEAD")}, cancellable = true)
     void modifyPitch(SoundInstance instance, CallbackInfoReturnable<Float> returnable) {
+        if (!Settings.clientSound) return;
         returnable.setReturnValue(50.0F / UniversalTickClient.clientTickSpeed);
         returnable.cancel();
     }
