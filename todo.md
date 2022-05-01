@@ -18,8 +18,8 @@
 - [X] True Tick Speed
 - [X] Client - Server Communication
 - [X] Client Tick Speed
-  - [ ] Rendering
-  - [ ] Sound
+  - [X] Rendering
+  - [X] Sound
   - [ ] Control
 - [X] Tick Speed Syncing
 - [X] Sync Tick Speed on Client Join
