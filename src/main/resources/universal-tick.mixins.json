@@ -4,12 +4,14 @@
   "package": "com.connorcode.universaltick.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "PlayerJoin",
     "TickEvent",
     "TickTime"
   ],
   "client": [
-    "ClientTickEvent",
-    "ClientRenderTickCounter"
+    "ClientRenderTickCounter",
+    "ClientSaveLevelScreen",
+    "ClientTickEvent"
   ],
   "injectors": {
     "defaultRequire": 1

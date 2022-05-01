@@ -5,13 +5,13 @@ import com.connorcode.universaltick.mixin.ClientRenderTickCounter;
 import com.connorcode.universaltick.mixin.ClientTickEvent;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.MinecraftClient;
 
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
-    public static float targetTps = 20;
-
     @Override
     public void onInitializeClient() {
         // Create Tick Speed Packet Listener
@@ -19,11 +19,13 @@ public class UniversalTickClient implements ClientModInitializer {
                 (client, handler, buf, responseSender) -> {
                     // Read MSPT and calculate target TPS
                     long mspt = buf.readLong();
-                    targetTps = 1F / (float) mspt * 1000F;
 
-                    client.execute(() -> {
-                        ((ClientRenderTickCounter) ((ClientTickEvent) client).renderTickCounter()).tickTime(mspt);
-                    });
+                    client.execute(() -> setClientTickSpeed(mspt));
                 });
+    }
+
+    public static void setClientTickSpeed(float mspt) {
+        ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(
+                mspt);
     }
 }

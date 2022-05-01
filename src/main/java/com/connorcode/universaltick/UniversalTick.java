@@ -11,7 +11,9 @@ import net.minecraft.util.Identifier;
 
 public class UniversalTick implements ModInitializer {
     public static final Identifier SET_TICK_SPEED_PACKET = new Identifier("universialtick", "tickspeed");
+    public static final Identifier GREETING_PACKET = new Identifier("universialtick", "greeting");
     public static long targetMSPT = 50;
+    public static long clientTargetMSPT = 50;
 
     public static TickInfo tickInfo = new TickInfo();
     public static MinecraftServer server;
@@ -19,6 +21,10 @@ public class UniversalTick implements ModInitializer {
     // Get the target tick speed as TPS
     public static float getTps() {
         return 1F / (float) targetMSPT * 1000F;
+    }
+
+    public static float getClientTps() {
+        return 1F / (float) clientTargetMSPT * 1000F;
     }
 
     // Set target tick speed and update connected clients
@@ -29,8 +35,9 @@ public class UniversalTick implements ModInitializer {
 
         // Update tick speed for all clients
         if (updateType == RateChange.Client || updateType == RateChange.Universal) {
+            clientTargetMSPT = (long) (1.0 / tps * 1000);
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeLong(targetMSPT);
+            buf.writeLong(clientTargetMSPT);
             for (ServerPlayerEntity p : server.getPlayerManager()
                     .getPlayerList())
                 ServerPlayNetworking.send(p, SET_TICK_SPEED_PACKET, buf);

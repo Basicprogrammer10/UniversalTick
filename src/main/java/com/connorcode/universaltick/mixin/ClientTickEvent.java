@@ -9,7 +9,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface ClientTickEvent {
     @Accessor("renderTickCounter")
     RenderTickCounter renderTickCounter();
-
-    @Accessor("renderTickCounter")
-    public void setRenderTickCounter(RenderTickCounter renderTickCounter);
 }

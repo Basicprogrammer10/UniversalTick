@@ -22,4 +22,5 @@
   - [ ] Sound
   - [ ] Control
 - [X] Tick Speed Syncing
+- [X] Sync Tick Speed on Client Join
 - [ ] Reset Client TickSpeed on world / server leave
