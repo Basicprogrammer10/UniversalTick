@@ -14,7 +14,7 @@ public class TickGet implements Command {
         try {
             ctx.getSource()
                     .getPlayer()
-                    // Target TPS × Real TPS
+                    // [Server Target TPS, Client Target TPS] × Real Server TPS
                     .sendMessage(Text.of(String.format("[%.1f, %.1f] ⌂ %.1f", UniversalTick.getTps(),
                             UniversalTick.getClientTps(), UniversalTick.tickInfo.getTps())), true);
         } catch (CommandSyntaxException e) {

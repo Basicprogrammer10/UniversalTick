@@ -11,6 +11,7 @@ public class About implements Command {
     @Override
     public int execute(@NotNull CommandContext<ServerCommandSource> ctx) {
         try {
+            // Just return a little message with the version
             ctx.getSource()
                     .getPlayer()
                     .sendMessage(Text.of("UniversalTick Mod V1.0 by Sigma#8214"), true);

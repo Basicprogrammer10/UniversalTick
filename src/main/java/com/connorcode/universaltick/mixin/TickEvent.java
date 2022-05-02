@@ -12,6 +12,7 @@ import java.util.function.BooleanSupplier;
 // Try to get TPS
 @Mixin(MinecraftServer.class)
 public class TickEvent {
+    // Count the tick with TickInfo::processTick
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         UniversalTick.tickInfo.processTick();

@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Mouse.class)
 public class ClientMouse {
+    // Modify client mouse sensitivity from the client tick rate
     @ModifyVariable(method = "updateMouse", at = @At(value = "STORE"), ordinal = 2)
     private double modifyMouseSensitivity(double og) {
         if (!UniversalTickClient.settings.clientMouse) return og;
