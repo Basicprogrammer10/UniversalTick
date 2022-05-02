@@ -2,6 +2,8 @@
 
 > this gona be hard
 
+A mod to set the tick speed of a server and connected clients.
+
 This _fabric_ mod requires [FabricApi](https://www.curseforge.com/minecraft/mc-mods/fabric-api).
 This is ment to be installed on the client and server (thats the universal part of UniversalTick), however it will work just on the server but _not_ just on the client.
 On the client it even slows down the audio output.
