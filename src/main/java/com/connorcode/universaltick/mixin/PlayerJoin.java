@@ -17,6 +17,7 @@ import static com.connorcode.universaltick.UniversalTick.SET_TICK_SPEED_PACKET;
 
 @Mixin(PlayerManager.class)
 public class PlayerJoin {
+    // On player join send them the tick speed packet and setting sync packet
     @Inject(at = @At(value = "TAIL"), method = "onPlayerConnect")
     void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
         PacketByteBuf buf = PacketByteBufs.create();

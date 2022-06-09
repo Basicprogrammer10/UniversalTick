@@ -33,6 +33,7 @@ public class UniversalTickClient implements ClientModInitializer {
                     long mspt = buf.readLong();
                     clientTickSpeed = mspt;
 
+                    // Go onto the render thread, set the tick speed and show a toast :p
                     client.execute(() -> {
                         setClientTickSpeed(mspt);
 
@@ -50,6 +51,7 @@ public class UniversalTickClient implements ClientModInitializer {
                     NbtCompound data = buf.readNbt();
                     assert data != null;
 
+                    // Set local settings from packet
                     settings.clientMouse = data.getBoolean("clientMouse");
                     settings.clientSound = data.getBoolean("clientSound");
                 });

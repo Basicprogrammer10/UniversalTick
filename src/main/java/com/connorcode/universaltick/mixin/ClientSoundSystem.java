@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SoundSystem.class)
 public class ClientSoundSystem {
+    // Modify all sound playback speeds to match the client tick speed
     @Inject(method = {"getAdjustedPitch"}, at = {@At("HEAD")}, cancellable = true)
     void modifyPitch(SoundInstance instance, CallbackInfoReturnable<Float> returnable) {
         if (!UniversalTickClient.settings.clientSound) return;

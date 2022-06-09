@@ -12,6 +12,7 @@ public class Settings {
     public boolean clientMouse = true;
     public boolean clientSound = true;
 
+    // Get all the settings as a NBT compound
     public NbtCompound asNbt() {
         NbtCompound data = new NbtCompound();
         data.putBoolean("clientMouse", clientMouse);
@@ -19,6 +20,7 @@ public class Settings {
         return data;
     }
 
+    // Broadcast the settings to all clients
     public void broadcastSettings() {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeNbt(asNbt());

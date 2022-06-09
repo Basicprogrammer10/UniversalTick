@@ -29,8 +29,12 @@ public class TickSet implements Command {
         if (changeType.isEmpty())
             return Commands.easyErr(ctx, "Invalid change type");
 
+        // Tick Rate Limits (0 - 500)
         if (parseResult.get() > 500)
             return Commands.easyErr(ctx, "Lets keep the tick speed to 500 or under");
+
+        if (parseResult.get() <= 0)
+            return Commands.easyErr(ctx, "Are you trying to freeze the event loop?");
 
         // Set the server tps and notify all clients
         UniversalTick.setTps(parseResult.get(), changeType.get());

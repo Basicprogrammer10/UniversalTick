@@ -9,8 +9,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SaveLevelScreen.class)
 public class ClientSaveLevelScreen {
+    // Reset client tick speed when going to the level load screen
     @Inject(method = {"<init>"}, at = {@At("TAIL")})
     void resetTickTime(CallbackInfo info) {
         UniversalTickClient.setClientTickSpeed(50);
+        UniversalTickClient.sentServerToast = false;
     }
 }
