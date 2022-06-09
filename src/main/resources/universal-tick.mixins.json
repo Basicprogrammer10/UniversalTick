@@ -13,7 +13,8 @@
     "ClientRenderTickCounter",
     "ClientSaveLevelScreen",
     "ClientSoundSystem",
-    "ClientTickEvent"
+    "ClientTickEvent",
+    "ClientRenderItem"
   ],
   "injectors": {
     "defaultRequire": 1

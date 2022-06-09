@@ -9,10 +9,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static com.connorcode.universaltick.UniversalTick.SETTING_SYNC_PACKET;
 
 public class Settings {
-    public final String[] settings = new String[]{
-            "clientMouse", "clientSound"
-    };
-
     public boolean clientMouse = true;
     public boolean clientSound = true;
 
