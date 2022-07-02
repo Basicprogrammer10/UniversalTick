@@ -2,6 +2,7 @@ package com.connorcode.universaltick.client;
 
 import com.connorcode.universaltick.Settings;
 import com.connorcode.universaltick.UniversalTick;
+import com.connorcode.universaltick.Util;
 import com.connorcode.universaltick.mixin.ClientRenderTickCounter;
 import com.connorcode.universaltick.mixin.ClientTickEvent;
 import com.connorcode.universaltick.mixin.RenderTickCounterMixin;
@@ -14,6 +15,8 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+
+import java.io.IOException;
 
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
@@ -63,5 +66,10 @@ public class UniversalTickClient implements ClientModInitializer {
                     settings.clientMouse = data.getBoolean("clientMouse");
                     settings.clientSound = data.getBoolean("clientSound");
                 });
+
+        try {
+            Util.checkVersion();
+        } catch (IOException ignored) {
+        }
     }
 }

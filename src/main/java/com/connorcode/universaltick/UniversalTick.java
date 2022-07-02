@@ -9,7 +9,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
+import java.io.IOException;
+
 public class UniversalTick implements ModInitializer {
+    public static final String VERSION = "1.1";
     public static final Identifier SET_TICK_SPEED_PACKET = new Identifier("universialtick", "tickspeed");
     public static final Identifier SETTING_SYNC_PACKET = new Identifier("universialtick", "settings");
     public static long targetMSPT = 50;
@@ -59,6 +62,10 @@ public class UniversalTick implements ModInitializer {
 
         // Init server side command system
         new Commands().initCommands();
+        try {
+            Util.checkVersion();
+        } catch (IOException ignored) {
+        }
     }
 
     // The different targets of the rate change
