@@ -23,18 +23,14 @@ public class TickSet implements Command {
         Optional<RateChange> changeType = parseType(ctx);
 
         // If parsing fails send an error
-        if (parseResult.isEmpty())
-            return Commands.easyErr(ctx, "Invalid tick speed");
+        if (parseResult.isEmpty()) return Commands.easyErr(ctx, "Invalid tick speed");
 
-        if (changeType.isEmpty())
-            return Commands.easyErr(ctx, "Invalid change type");
+        if (changeType.isEmpty()) return Commands.easyErr(ctx, "Invalid change type");
 
         // Tick Rate Limits (0 - 500)
-        if (parseResult.get() > 500)
-            return Commands.easyErr(ctx, "Lets keep the tick speed to 500 or under");
+        if (parseResult.get() > 500) return Commands.easyErr(ctx, "Lets keep the tick speed to 500 or under");
 
-        if (parseResult.get() <= 0)
-            return Commands.easyErr(ctx, "Are you trying to freeze the event loop?");
+        if (parseResult.get() <= 0) return Commands.easyErr(ctx, "Are you trying to freeze the event loop?");
 
         // Set the server tps and notify all clients
         UniversalTick.setTps(parseResult.get(), changeType.get());
@@ -44,10 +40,9 @@ public class TickSet implements Command {
 
         // Send message with new tick speed
         try {
-            ctx.getSource()
-                    .getPlayer()
-                    .sendMessage(Text.of(String.format("Set%s Tick Speed To %.1f", typeString(changeType.get()),
-                            parseResult.get())), true);
+            ctx.getSource().getPlayer().sendMessage(
+                    Text.of(String.format("Set%s Tick Speed To %.1f", typeString(changeType.get()), parseResult.get())),
+                    true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

@@ -12,9 +12,7 @@ public class About implements Command {
     public int execute(@NotNull CommandContext<ServerCommandSource> ctx) {
         try {
             // Just return a little message with the version
-            ctx.getSource()
-                    .getPlayer()
-                    .sendMessage(Text.of("UniversalTick Mod V1.0 by Sigma#8214"), true);
+            ctx.getSource().getPlayer().sendMessage(Text.of("UniversalTick Mod V1.0 by Sigma#8214"), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

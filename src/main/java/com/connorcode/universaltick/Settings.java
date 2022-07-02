@@ -24,8 +24,7 @@ public class Settings {
     public void broadcastSettings() {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeNbt(asNbt());
-        for (ServerPlayerEntity p : UniversalTick.server.getPlayerManager()
-                .getPlayerList())
+        for (ServerPlayerEntity p : UniversalTick.server.getPlayerManager().getPlayerList())
             ServerPlayNetworking.send(p, SETTING_SYNC_PACKET, buf);
     }
 }

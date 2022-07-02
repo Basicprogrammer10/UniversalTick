@@ -12,8 +12,7 @@ public class TickGet implements Command {
     @Override
     public int execute(@NotNull CommandContext<ServerCommandSource> ctx) {
         try {
-            ctx.getSource()
-                    .getPlayer()
+            ctx.getSource().getPlayer()
                     // [Server Target TPS, Client Target TPS] × Real Server TPS
                     .sendMessage(Text.of(String.format("[%.1f, %.1f] ⌂ %.1f", UniversalTick.getTps(),
                             UniversalTick.getClientTps(), UniversalTick.tickInfo.getTps())), true);

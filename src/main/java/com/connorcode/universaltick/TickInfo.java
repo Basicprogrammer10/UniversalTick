@@ -17,9 +17,6 @@ public class TickInfo {
 
     public double getTps() {
         // Average the tps
-        return tickHistory.stream()
-                .mapToDouble(d -> 1D / (float) d * 1000D)
-                .average()
-                .orElse(0.0);
+        return tickHistory.stream().mapToDouble(d -> 1D / (float) d * 1000D).average().orElse(0.0);
     }
 }

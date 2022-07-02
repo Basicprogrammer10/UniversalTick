@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(RenderPhase.class)
 public class ClientRenderItem {
-    @Redirect(method = "setupGlintTexturing", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J"))
+    @Redirect(method = "setupGlintTexturing", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;" +
+            "getMeasuringTimeMs()J"))
     private static long getEnchantmentTime() {
         return (long) (Util.getMeasuringTimeMs() / (UniversalTickClient.clientTickSpeed / 50.0));
     }

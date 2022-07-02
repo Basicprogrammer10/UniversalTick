@@ -39,8 +39,7 @@ public class UniversalTick implements ModInitializer {
             clientTargetMSPT = (long) (1.0 / tps * 1000);
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeLong(clientTargetMSPT);
-            for (ServerPlayerEntity p : server.getPlayerManager()
-                    .getPlayerList())
+            for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
                 ServerPlayNetworking.send(p, SET_TICK_SPEED_PACKET, buf);
         }
     }

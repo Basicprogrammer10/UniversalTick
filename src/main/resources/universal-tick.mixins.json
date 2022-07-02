@@ -4,17 +4,21 @@
   "package": "com.connorcode.universaltick.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "AbstractBlockMixin",
     "PlayerJoin",
     "TickEvent",
     "TickTime"
   ],
   "client": [
+    "ClientMixin",
     "ClientMouse",
+    "ClientPlayerInteractionManagerMixin",
+    "ClientRenderItem",
     "ClientRenderTickCounter",
     "ClientSaveLevelScreen",
     "ClientSoundSystem",
     "ClientTickEvent",
-    "ClientRenderItem"
+    "RenderTickCounterMixin"
   ],
   "injectors": {
     "defaultRequire": 1

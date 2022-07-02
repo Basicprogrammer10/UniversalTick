@@ -23,12 +23,9 @@ public class Commands {
     Command tickSetCommand = new TickSet();
 
     // Easy way to exit after sending an error message to the players
-    public static int easyErr(@NotNull CommandContext<ServerCommandSource> ctx,
-                              String message) {
+    public static int easyErr(@NotNull CommandContext<ServerCommandSource> ctx, String message) {
         try {
-            ctx.getSource()
-                    .getPlayer()
-                    .sendMessage(Text.of(message), true);
+            ctx.getSource().getPlayer().sendMessage(Text.of(message), true);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
@@ -38,38 +35,31 @@ public class Commands {
 
     // Add the commands to the server
     void initCommands() {
-        CommandRegistrationCallback.EVENT.register(
-                (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("tick")
-                        .then(CommandManager.literal("set")
-                                .requires((x) -> x.hasPermissionLevel(4))
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(
+                CommandManager.literal("tick")
+                        .then(CommandManager.literal("set").requires((x) -> x.hasPermissionLevel(4))
                                 .then(CommandManager.argument("tick", string())
                                         .suggests((c, b) -> suggestMatching(new String[]{"20.0", "100p"}, b))
                                         .executes(tickSetCommand::execute)
-                                        .then(CommandManager.argument("type", string())
-                                                .suggests((c, b) -> suggestMatching(
-                                                        new String[]{"server", "clients", "universal"}, b))
+                                        .then(CommandManager.argument("type", string()).suggests(
+                                                        (c, b) -> suggestMatching(
+                                                                new String[]{"server", "clients", "universal"}, b))
                                                 .executes(tickSetCommand::execute)))
                                 .executes(ctx -> easyErr(ctx, "No tick rate provided")))
-                        .then(CommandManager.literal("get")
-                                .executes(tickGetCommand::execute))
-                        .then(CommandManager.literal("about")
-                                .executes(aboutCommand::execute))
+                        .then(CommandManager.literal("get").executes(tickGetCommand::execute))
+                        .then(CommandManager.literal("about").executes(aboutCommand::execute))
                         .executes(ctx -> easyErr(ctx, "No tick subcommand provided"))
-                        .then(CommandManager.literal("config")
-                                .requires((x) -> x.hasPermissionLevel(4))
+                        .then(CommandManager.literal("config").requires((x) -> x.hasPermissionLevel(4))
                                 .then(CommandManager.literal("clientMouse")
-                                        .then(CommandManager.argument("value", bool())
-                                                .executes(ctx -> {
-                                                    UniversalTick.settings.clientMouse = getBool(ctx, "value");
-                                                    UniversalTick.settings.broadcastSettings();
-                                                    return 1;
-                                                })))
-                                .then(CommandManager.literal("clientSound")
-                                        .then(CommandManager.argument("value", bool())
-                                                .executes(ctx -> {
-                                                    UniversalTick.settings.clientSound = getBool(ctx, "value");
-                                                    UniversalTick.settings.broadcastSettings();
-                                                    return 1;
-                                                }))))));
+                                        .then(CommandManager.argument("value", bool()).executes(ctx -> {
+                                            UniversalTick.settings.clientMouse = getBool(ctx, "value");
+                                            UniversalTick.settings.broadcastSettings();
+                                            return 1;
+                                        }))).then(CommandManager.literal("clientSound")
+                                        .then(CommandManager.argument("value", bool()).executes(ctx -> {
+                                            UniversalTick.settings.clientSound = getBool(ctx, "value");
+                                            UniversalTick.settings.broadcastSettings();
+                                            return 1;
+                                        }))))));
     }
 }
