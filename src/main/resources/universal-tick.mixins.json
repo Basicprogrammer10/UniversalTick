@@ -18,7 +18,8 @@
     "ClientSaveLevelScreen",
     "ClientSoundSystem",
     "ClientTickEvent",
-    "RenderTickCounterMixin"
+    "RenderTickCounterMixin",
+    "SmoothUtilMixin"
   ],
   "injectors": {
     "defaultRequire": 1

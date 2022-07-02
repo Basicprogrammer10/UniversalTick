@@ -50,8 +50,8 @@ public abstract class ClientMixin {
     private void handleInputEventsRedirect(MinecraftClient minecraftClient) {
     }
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderTickCounter;" +
-            "beginRenderTick(J)I"))
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderTickCounter;"
+            + "beginRenderTick(J)I"))
     private int storeTicksToDo(RenderTickCounter renderTickCounter, long timeMillis) {
         UniversalTickClient.ticksToDo = renderTickCounter.beginRenderTick(timeMillis);
         UniversalTickClient.ticksToGetDone += UniversalTickClient.ticksToDo;

@@ -9,7 +9,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static com.connorcode.universaltick.UniversalTick.SETTING_SYNC_PACKET;
 
 public class Settings {
-    public boolean clientMouse = true;
+    public boolean clientMouse = false;
     public boolean clientSound = true;
 
     // Get all the settings as a NBT compound
