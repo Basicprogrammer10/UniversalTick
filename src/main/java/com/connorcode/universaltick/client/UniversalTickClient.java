@@ -24,15 +24,15 @@ public class UniversalTickClient implements ClientModInitializer {
     public static long clientTickSpeed = 50;
     public static boolean sentServerToast = false;
 
-    public static int stableTicksToDo = 0;
-    public static int ticksToDo = 0;
-    public static int ticksToGetDone = 0;
-    public static RenderTickCounter renderTickCounter = new RenderTickCounter(20, 0);
+//    public static int stableTicksToDo = 0;
+//    public static int ticksToDo = 0;
+//    public static int ticksToGetDone = 0;
+    public static long lastBlockBreak = 0;
 
     public static void setClientTickSpeed(float mspt) {
         ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(
                 mspt);
-        ((RenderTickCounterMixin) renderTickCounter).setTickTime(mspt);
+//        ((RenderTickCounterMixin) renderTickCounter).setTickTime(mspt);
     }
 
     @Override

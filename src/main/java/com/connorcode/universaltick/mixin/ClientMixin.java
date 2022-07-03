@@ -29,19 +29,21 @@ public abstract class ClientMixin {
     @Shadow
     protected abstract void handleInputEvents();
 
+    @Shadow public abstract void tick();
+
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Mouse;updateMouse()V"))
     private void checkInputs(boolean tick, CallbackInfo ci) {
         if (currentScreen != null) return;
-        for (int i = 0; i < Math.min(10, UniversalTickClient.stableTicksToDo); i++) {
+//        for (int i = 0; i < Math.min(10, UniversalTickClient.stableTicksToDo); i++) {
             this.handleInputEvents();
             this.gameRenderer.updateTargetedEntity(1.0F);
-        }
+//        }
     }
 
     @ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 1)
     private int updateStableRTC(int i) {
-        UniversalTickClient.stableTicksToDo = UniversalTickClient.renderTickCounter.beginRenderTick(
-                Util.getMeasuringTimeMs());
+//        UniversalTickClient.renderTickCounter.beginRenderTick(
+//                Util.getMeasuringTimeMs());
         return i;
     }
 
@@ -50,13 +52,16 @@ public abstract class ClientMixin {
     private void handleInputEventsRedirect(MinecraftClient minecraftClient) {
     }
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderTickCounter;"
-            + "beginRenderTick(J)I"))
-    private int storeTicksToDo(RenderTickCounter renderTickCounter, long timeMillis) {
-        UniversalTickClient.ticksToDo = renderTickCounter.beginRenderTick(timeMillis);
-        UniversalTickClient.ticksToGetDone += UniversalTickClient.ticksToDo;
-        return UniversalTickClient.ticksToDo;
-    }
+//    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderTickCounter;"
+//            + "beginRenderTick(J)I"))
+//    private int storeTicksToDo(RenderTickCounter renderTickCounter, long timeMillis) {
+//        int tick = renderTickCounter.beginRenderTick(timeMillis);
+////        UniversalTickClient.ticksToGetDone += tick;
+//        return tick;
+////        UniversalTickClient.ticksToDo = renderTickCounter.beginRenderTick(timeMillis);
+////        UniversalTickClient.ticksToGetDone += UniversalTickClient.ticksToDo;
+////        return UniversalTickClient.ticksToDo;
+//    }
 
     @Inject(method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("TAIL"))
     private void onDisconnect(Screen screen, CallbackInfo ci) {

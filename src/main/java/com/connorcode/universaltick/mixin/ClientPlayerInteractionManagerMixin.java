@@ -1,5 +1,6 @@
 package com.connorcode.universaltick.mixin;
 
+import com.connorcode.universaltick.UniversalTick;
 import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
+    int x;
     @Shadow
     private int blockBreakingCooldown;
 
@@ -23,13 +25,12 @@ public class ClientPlayerInteractionManagerMixin {
     @Inject(method = "updateBlockBreakingProgress", at = @At(value = "INVOKE", target = "Lnet/minecraft/client" +
             "/network/ClientPlayerInteractionManager;syncSelectedSlot()V", shift = At.Shift.AFTER), cancellable = true)
     private void updateBlockBreakingCooldown(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (this.blockBreakingCooldown > 0) {
-            if (UniversalTickClient.ticksToGetDone > 0) {
-                --this.blockBreakingCooldown;
-            }
-            UniversalTickClient.ticksToGetDone = 0;
-            cir.setReturnValue(true);
+        if (this.blockBreakingCooldown <= 0) return;
+        if (UniversalTickClient.lastBlockBreak < 250) {
+            cir.setReturnValue(false);
+            return;
         }
+        cir.setReturnValue(true);
     }
 
     @Redirect(method = "updateBlockBreakingProgress", at = @At(value = "FIELD", target = "Lnet/minecraft/client" +
@@ -38,10 +39,8 @@ public class ClientPlayerInteractionManagerMixin {
         return 0;
     }
 
-    @Redirect(method = "updateBlockBreakingProgress", at = @At(value = "FIELD", target = "Lnet/minecraft/client" +
-            "/network/ClientPlayerInteractionManager;blockBreakingSoundCooldown:F", opcode = Opcodes.PUTFIELD,
-            ordinal = 0))
-    private void proxyUpdateBlockBreakingSoundCooldown(ClientPlayerInteractionManager instance, float value) {
-        this.blockBreakingSoundCooldown += 50f / UniversalTickClient.clientTickSpeed;
+    @Inject(method = "attackBlock", at = @At("RETURN"))
+    void attackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValueZ()) UniversalTickClient.lastBlockBreak = System.currentTimeMillis();
     }
 }
