@@ -15,7 +15,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
@@ -23,18 +22,9 @@ public class UniversalTickClient implements ClientModInitializer {
     public static long clientTickSpeed = 50;
     public static boolean sentServerToast = false;
 
-    //    public static int stableTicksToDo = 0;
-//    public static int ticksToDo = 0;
-//    public static int ticksToGetDone = 0;
-    public static ArrayList<Long> avgFrameTime = new ArrayList<>();
-    public static long lastFrameTimestamp = -1;
-    public static long lastCooldownUpdateTimestamp  = 0;
-    public static long lastBlockBreak = 0;
-
     public static void setClientTickSpeed(float mspt) {
         ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(
                 mspt);
-//        ((RenderTickCounterMixin) renderTickCounter).setTickTime(mspt);
     }
 
     @Override
@@ -73,12 +63,5 @@ public class UniversalTickClient implements ClientModInitializer {
             Util.checkVersion();
         } catch (IOException ignored) {
         }
-    }
-
-    public static float getAvgFrameTime() {
-        long total = 0;
-
-        for (long i : avgFrameTime) total += i;
-        return (float) total / (float) avgFrameTime.size();
     }
 }

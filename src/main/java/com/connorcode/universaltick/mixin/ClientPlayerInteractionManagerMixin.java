@@ -1,6 +1,5 @@
 package com.connorcode.universaltick.mixin;
 
-import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -15,12 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
-    int x;
+    static long lastCooldownUpdateTimestamp = 0;
     @Shadow
     private int blockBreakingCooldown;
-
-    @Shadow
-    private float blockBreakingSoundCooldown;
 
     @Inject(method = "updateBlockBreakingProgress", at = @At(value = "INVOKE", target = "Lnet/minecraft/client" +
             "/network/ClientPlayerInteractionManager;syncSelectedSlot()V", shift = At.Shift.AFTER), cancellable = true)
@@ -28,10 +24,9 @@ public class ClientPlayerInteractionManagerMixin {
         if (this.blockBreakingCooldown <= 0) return;
         cir.setReturnValue(true);
 
-        if (Util.getEpochTimeMs() - UniversalTickClient.lastCooldownUpdateTimestamp >= 50) {
+        if (Util.getEpochTimeMs() - lastCooldownUpdateTimestamp >= 50) {
             this.blockBreakingCooldown--;
-            System.out.printf("DECREMENT: %d\n", this.blockBreakingCooldown);
-            UniversalTickClient.lastCooldownUpdateTimestamp = Util.getEpochTimeMs();
+            lastCooldownUpdateTimestamp = Util.getEpochTimeMs();
         }
     }
 
@@ -40,12 +35,4 @@ public class ClientPlayerInteractionManagerMixin {
     private int removeBlockBreakingCooldownUpdate(ClientPlayerInteractionManager clientPlayerInteractionManager) {
         return 0;
     }
-
-//    @Inject(method = "attackBlock", at = @At("RETURN"))
-//    void attackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-//        if (cir.getReturnValueZ()) {
-//            UniversalTickClient.lastBlockBreak = System.currentTimeMillis();
-//            System.out.println("RESETTING TIME");
-//        }
-//    }
 }
