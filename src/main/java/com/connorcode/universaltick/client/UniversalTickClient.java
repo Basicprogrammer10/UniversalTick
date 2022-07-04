@@ -21,6 +21,7 @@ public class UniversalTickClient implements ClientModInitializer {
     public static Settings settings = new Settings();
     public static long clientTickSpeed = 50;
     public static boolean sentServerToast = false;
+    public static long lastBlockHitTimestamp;
 
     public static void setClientTickSpeed(float mspt) {
         ((ClientRenderTickCounter) ((ClientTickEvent) MinecraftClient.getInstance()).renderTickCounter()).tickTime(

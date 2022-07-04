@@ -4,6 +4,7 @@ import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,15 +14,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// Modified from https://github.com/Wartori54/TRC-No-Lag
 @Mixin(MinecraftClient.class)
 public abstract class ClientMixin {
+    private static long lastAttackCooldownUpdateTimestamp;
+
     @Shadow
     @Nullable
     public Screen currentScreen;
     @Shadow
     @Final
     public GameRenderer gameRenderer;
+    @Shadow
+    protected int attackCooldown;
 
     @Shadow
     protected abstract void handleInputEvents();
@@ -31,7 +35,8 @@ public abstract class ClientMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Mouse;updateMouse()V"))
     private void checkInputs(boolean tick, CallbackInfo ci) {
-        if (currentScreen != null) return;
+        if (currentScreen != null || Util.getEpochTimeMs() - UniversalTickClient.lastBlockHitTimestamp < UniversalTickClient.clientTickSpeed)
+            return;
         this.handleInputEvents();
         this.gameRenderer.updateTargetedEntity(1.0F);
     }
