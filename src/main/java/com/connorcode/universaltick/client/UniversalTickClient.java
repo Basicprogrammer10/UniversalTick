@@ -5,18 +5,17 @@ import com.connorcode.universaltick.UniversalTick;
 import com.connorcode.universaltick.Util;
 import com.connorcode.universaltick.mixin.ClientRenderTickCounter;
 import com.connorcode.universaltick.mixin.ClientTickEvent;
-import com.connorcode.universaltick.mixin.RenderTickCounterMixin;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Environment(EnvType.CLIENT)
 public class UniversalTickClient implements ClientModInitializer {
@@ -24,9 +23,12 @@ public class UniversalTickClient implements ClientModInitializer {
     public static long clientTickSpeed = 50;
     public static boolean sentServerToast = false;
 
-//    public static int stableTicksToDo = 0;
+    //    public static int stableTicksToDo = 0;
 //    public static int ticksToDo = 0;
 //    public static int ticksToGetDone = 0;
+    public static ArrayList<Long> avgFrameTime = new ArrayList<>();
+    public static long lastFrameTimestamp = -1;
+    public static long lastCooldownUpdateTimestamp  = 0;
     public static long lastBlockBreak = 0;
 
     public static void setClientTickSpeed(float mspt) {
@@ -71,5 +73,12 @@ public class UniversalTickClient implements ClientModInitializer {
             Util.checkVersion();
         } catch (IOException ignored) {
         }
+    }
+
+    public static float getAvgFrameTime() {
+        long total = 0;
+
+        for (long i : avgFrameTime) total += i;
+        return (float) total / (float) avgFrameTime.size();
     }
 }

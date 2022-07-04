@@ -4,12 +4,12 @@
   "package": "com.connorcode.universaltick.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "AbstractBlockMixin",
     "PlayerJoin",
     "TickEvent",
     "TickTime"
   ],
   "client": [
+    "AbstractBlockMixin",
     "ClientMixin",
     "ClientMouse",
     "ClientPlayerInteractionManagerMixin",

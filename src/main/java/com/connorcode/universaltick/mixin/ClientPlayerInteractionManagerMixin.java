@@ -1,8 +1,8 @@
 package com.connorcode.universaltick.mixin;
 
-import com.connorcode.universaltick.UniversalTick;
 import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.objectweb.asm.Opcodes;
@@ -26,11 +26,13 @@ public class ClientPlayerInteractionManagerMixin {
             "/network/ClientPlayerInteractionManager;syncSelectedSlot()V", shift = At.Shift.AFTER), cancellable = true)
     private void updateBlockBreakingCooldown(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         if (this.blockBreakingCooldown <= 0) return;
-        if (UniversalTickClient.lastBlockBreak < 250) {
-            cir.setReturnValue(false);
-            return;
-        }
         cir.setReturnValue(true);
+
+        if (Util.getEpochTimeMs() - UniversalTickClient.lastCooldownUpdateTimestamp >= 50) {
+            this.blockBreakingCooldown--;
+            System.out.printf("DECREMENT: %d\n", this.blockBreakingCooldown);
+            UniversalTickClient.lastCooldownUpdateTimestamp = Util.getEpochTimeMs();
+        }
     }
 
     @Redirect(method = "updateBlockBreakingProgress", at = @At(value = "FIELD", target = "Lnet/minecraft/client" +
@@ -39,8 +41,11 @@ public class ClientPlayerInteractionManagerMixin {
         return 0;
     }
 
-    @Inject(method = "attackBlock", at = @At("RETURN"))
-    void attackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValueZ()) UniversalTickClient.lastBlockBreak = System.currentTimeMillis();
-    }
+//    @Inject(method = "attackBlock", at = @At("RETURN"))
+//    void attackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+//        if (cir.getReturnValueZ()) {
+//            UniversalTickClient.lastBlockBreak = System.currentTimeMillis();
+//            System.out.println("RESETTING TIME");
+//        }
+//    }
 }
