@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
-    static long lastCooldownUpdateTimestamp = 0;
+    private static long lastCooldownUpdateTimestamp = 0;
     @Shadow
     private int blockBreakingCooldown;
 
