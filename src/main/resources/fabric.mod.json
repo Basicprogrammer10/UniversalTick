@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "universal-tick",
-  "version": "1.1",
+  "version": "1.1.1",
   "name": "Universal Tick",
   "description": "Control the tick speed on server and client",
   "authors": [

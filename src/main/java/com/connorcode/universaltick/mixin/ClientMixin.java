@@ -16,8 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public abstract class ClientMixin {
-    private static long lastAttackCooldownUpdateTimestamp;
-
     @Shadow
     @Nullable
     public Screen currentScreen;

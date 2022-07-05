@@ -6,8 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
 
 public class Util {
     public static void checkVersion() throws IOException {
@@ -20,7 +18,6 @@ public class Util {
         String version = scanner.useDelimiter("\\A").next().split(",")[0];
 
         if (version.equals(UniversalTick.VERSION)) return;
-        LogManager.getLogManager().getLogger("UniversalTick")
-                .log(Level.WARNING, String.format("Version Outdated! (%s > %s)", version, UniversalTick.VERSION));
+        System.out.printf("Version Outdated! (%s > %s)\n", version, UniversalTick.VERSION);
     }
 }
