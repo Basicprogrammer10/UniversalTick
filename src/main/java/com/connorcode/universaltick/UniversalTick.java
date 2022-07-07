@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import java.io.IOException;
 
 public class UniversalTick implements ModInitializer {
-    public static final String VERSION = "1.1.1";
+    public static final String VERSION = "1.1.2";
     public static final Identifier SET_TICK_SPEED_PACKET = new Identifier("universialtick", "tickspeed");
     public static final Identifier SETTING_SYNC_PACKET = new Identifier("universialtick", "settings");
     public static long targetMSPT = 50;

@@ -1,5 +1,6 @@
 package com.connorcode.universaltick.mixin;
 
+import com.connorcode.universaltick.Settings;
 import com.connorcode.universaltick.client.UniversalTickClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -46,6 +47,10 @@ public abstract class ClientMixin {
 
     @Inject(method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("TAIL"))
     private void onDisconnect(Screen screen, CallbackInfo ci) {
+        UniversalTickClient.settings = new Settings();
+        UniversalTickClient.clientTickSpeed = 50;
+        UniversalTickClient.sentServerToast = false;
+        UniversalTickClient.lastBlockHitTimestamp = 0;
         UniversalTickClient.setClientTickSpeed(50);
     }
 }
